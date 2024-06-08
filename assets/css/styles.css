@@ -1,3 +1,5 @@
+@font-face { font-family: BeautyDiary; src: url('/fonts/HappyBaby.otf'); } 
+
 body {
     margin: 0;
     padding: 0;
@@ -7,4 +9,46 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: BeautyDiary, sans-serif;
+
+}
+.text-container {
+    /* Center the text container */
+    position: relative;
+    display: inline-block;
+}
+
+.quote-wrap {
+    /* Background and padding for the quote text */
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px 40px;
+    border-radius: 15px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+.inspirational-text {
+    /* Style the quote text */
+    color: white;
+    text-align: center;
+    margin: 0 10px;
+    white-space: pre-line;
+}
+
+#quote-text {
+    font-size: 2.5em;
+}
+
+#quote-source {
+    font-size: 1.8em;
+}
+/* Media query for responsiveness */
+@media (max-width: 600px) {
+    #quote-text {
+        font-size: 1.5em;
+    }
+    #quote-source {
+        font-size: 1em;
+    }
 }
