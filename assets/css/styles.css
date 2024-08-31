@@ -1,5 +1,3 @@
-@font-face { font-family: BeautyDiary; src: url('/fonts/HappyBaby.otf'); } 
-
 body {
     margin: 0;
     padding: 0;
@@ -9,7 +7,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: BeautyDiary, sans-serif;
+    font-family: "Copperplate", Fantasy;
 
 }
 .text-container {
@@ -40,15 +38,9 @@ body {
     font-size: 2.5em;
 }
 
-#quote-source {
-    font-size: 1.8em;
-}
 /* Media query for responsiveness */
 @media (max-width: 600px) {
     #quote-text {
         font-size: 1.5em;
-    }
-    #quote-source {
-        font-size: 1em;
     }
 }
