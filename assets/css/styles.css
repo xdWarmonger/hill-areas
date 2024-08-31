@@ -29,20 +29,6 @@ body {
     align-items: safe center;
 }
 
-footer {
-    position: fixed; /* Position the footer fixed at the bottom-right corner */
-    bottom: 0; /* Align the footer to the bottom of the screen */
-    right: 0; /* Align the footer to the right side of the screen */
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    padding: 0px 20px; /* Adjust padding as needed */
-    font-family: BeautyDiary, sans-serif;
-    font-size: 20px;
-    border-radius: 15px; /* Add rounded corners */
-    z-index: 1; /* Ensure the footer is above other content */
-    display: flex; /* Use flexbox for centering */
-}
-
 .text-container {
     /* Center the text container */
     position: relative;
