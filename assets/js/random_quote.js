@@ -16,14 +16,6 @@ function fetchRandomQuote() {
         .catch(error => {
             console.error('Error fetching quotes:', error);
         });
-    fetch('/res/hillarious_people')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('quote-source').textContent = '- ' + getRandomLineFromString(data) + ' -';
-        })
-        .catch(error => {
-            console.error('Error fetching quotes:', error);
-        });
 }
 
 window.addEventListener('load', fetchRandomQuote);
