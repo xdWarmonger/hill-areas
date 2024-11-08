@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advent Calendar</title>
+    <style>
+        /* Basic reset */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Set up the body with a background image */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: url('christmas_background.avif') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Container for the calendar */
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 10px;
+            width: 100%;
+            max-width: 1000px;
+            margin: 20px;
+        }
+
+        /* Style for each calendar door */
+        .door {
+            position: relative;
+            width: 100%;
+            padding-bottom: 100%; /* Maintain a square ratio */
+            background-color: #2d6a4f;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+            text-align: center;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .door:hover {
+            background-color: #40916c;
+        }
+
+        /* Modal Styling */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        /* Modal Content Styling */
+        .modal-content {
+            position: relative;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 80vw;
+            max-height: 80vh;
+            overflow: hidden; /* Prevents scrolling */
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+            color: #333;
+            text-align: center;
+        }
+
+        /* Video Content Styling */
+        .modal-content video {
+            width: 100%;
+            height: auto; /* Ensures video scales properly without causing overflow */
+            max-height: 70vh; /* Ensure the video doesn't exceed the viewport height */
+            border-radius: 5px;
+        }
+
+        /* Image Content Styling */
+        .modal-content img {
+            width: 100%;
+            height: auto;
+            max-height: 70vh; /* Limit the height of images too */
+            object-fit: contain;
+            border-radius: 5px;
+        }
+
+        /* Close button styling */
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5rem;
+            color: #333;
+            cursor: pointer;
+        }
+
+        /* Text content inside modal */
+        .modal-content p {
+            font-size: 1.5rem;
+            line-height: 1.8;
+        }
+
+        /* Responsive Layout */
+        @media (max-width: 768px) {
+            .calendar {
+                grid-template-columns: repeat(3, 1fr); /* 3 columns on small screens */
+            }
+
+            .door {
+                font-size: 1.2rem;
+            }
+
+            .modal-content {
+                max-width: 95%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .calendar {
+                grid-template-columns: repeat(2, 1fr); /* 2 columns on very small screens */
+            }
+
+            .door {
+                font-size: 1rem;
+            }
+
+            .modal-content {
+                max-width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div id="header"></div>
+
+<div class="calendar">
+    <!-- 24 doors for each day leading up to Christmas -->
+    <div class="door" data-day="1" onclick="openContent(1)">1</div>
+    <div class="door" data-day="2" onclick="openContent(2)">2</div>
+    <div class="door" data-day="3" onclick="openContent(3)">3</div>
+    <div class="door" data-day="4" onclick="openContent(4)">4</div>
+    <div class="door" data-day="5" onclick="openContent(5)">5</div>
+    <div class="door" data-day="6" onclick="openContent(6)">6</div>
+    <div class="door" data-day="7" onclick="openContent(7)">7</div>
+    <div class="door" data-day="8" onclick="openContent(8)">8</div>
+    <div class="door" data-day="9" onclick="openContent(9)">9</div>
+    <div class="door" data-day="10" onclick="openContent(10)">10</div>
+    <div class="door" data-day="11" onclick="openContent(11)">11</div>
+    <div class="door" data-day="12" onclick="openContent(12)">12</div>
+    <div class="door" data-day="13" onclick="openContent(13)">13</div>
+    <div class="door" data-day="14" onclick="openContent(14)">14</div>
+    <div class="door" data-day="15" onclick="openContent(15)">15</div>
+    <div class="door" data-day="16" onclick="openContent(16)">16</div>
+    <div class="door" data-day="17" onclick="openContent(17)">17</div>
+    <div class="door" data-day="18" onclick="openContent(18)">18</div>
+    <div class="door" data-day="19" onclick="openContent(19)">19</div>
+    <div class="door" data-day="20" onclick="openContent(20)">20</div>
+    <div class="door" data-day="21" onclick="openContent(21)">21</div>
+    <div class="door" data-day="22" onclick="openContent(22)">22</div>
+    <div class="door" data-day="23" onclick="openContent(23)">23</div>
+    <div class="door" data-day="24" onclick="openContent(24)">24</div>
+</div>
+
+<!-- Modal for content display -->
+<div class="modal" id="contentModal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div id="contentDisplay"></div>
+    </div>
+</div>
+
+<script>
+    // Content array for each day with different types
+    const calendarContent = [
+        { day: 1, type: "video", source: "videos/video_1.mp4" },
+        { day: 2, type: "image", source: "images/image_2.jpg" },
+        { day: 3, type: "text", text: "🎄 <strong>Holiday Joke:</strong><br>Why did the Christmas tree go to the barber? Because it needed a trim!" },
+        { day: 4, type: "image", source: "images/image_3.jpg" },
+        { day: 5, type: "text", text: "🎅 <strong>Christmas Fact:</strong><br>Did you know that the tradition of hanging stockings dates back to the 1800s? It’s said that St. Nicholas threw gold coins into a chimney, which landed in stockings hung by the fireplace!" },
+        { day: 6, type: "video", source: "videos/video_1.mp4" },
+        { day: 7, type: "image", source: "images/image_4.jpg" },
+        { day: 8, type: "text", text: "🎁 <strong>Fun Holiday Trivia:</strong><br>In Japan, it’s common to eat KFC for Christmas dinner. Yep, you heard that right! It's become a popular tradition there." },
+        { day: 9, type: "image", source: "images/image_5.jpg" },
+        { day: 10, type: "text", text: "❄️ <strong>Holiday Riddle:</strong><br>I’m as white as snow, but I’m not cold. What am I? Answer: A snowman’s beard!" },
+        { day: 11, type: "image", source: "images/image_6.jpg" },
+        { day: 12, type: "video", source: "videos/video_1.mp4" },
+        { day: 13, type: "text", text: "🎉 <strong>Holiday Fun Fact:</strong><br>The first artificial Christmas tree was made in Germany in the 19th century. It was made out of dyed goose feathers!" },
+        { day: 14, type: "image", source: "images/image_7.jpg" },
+        { day: 15, type: "text", text: "🎄 <strong>Christmas Joke:</strong><br>Why did Frosty the Snowman want a divorce? He thought his wife was a little too flaky!" },
+        { day: 16, type: "image", source: "images/image_8.jpg" },
+        { day: 17, type: "video", source: "videos/video_1.mp4" },
+        { day: 18, type: "text", text: "🎅 <strong>Holiday Quote:</strong><br>“Christmas is not a time nor a season, but a state of mind.” – Calvin Coolidge" },
+        { day: 19, type: "image", source: "images/image_9.jpg" },
+        { day: 20, type: "text", text: "🍪 <strong>Vegan Christmas Cookies:</strong><br>Ingredients: 125 g of flour, 120 g of coconut oil (melted), 120 g of maple syrup, 1/4 tsp vanilla extract, 1/4 tsp baking soda, 1/4 tsp salt, optional vegan chocolate chips.<br>Directions: Preheat oven to 180°C. Mix ingredients and roll into balls. Place on a baking sheet and bake for 10-12 minutes. Enjoy!" },
+        { day: 21, type: "image", source: "images/image_10.jpg" },
+        { day: 22, type: "text", text: "🎁 <strong>Vegan Hot Chocolate Recipe:</strong><br>Ingredients: 480 ml of almond milk (or any plant milk), 2 tbsp cocoa powder, 1 tbsp maple syrup, 1/4 tsp vanilla extract, a pinch of salt.<br>Directions: Heat the milk over medium heat. Whisk in cocoa powder, maple syrup, vanilla, and salt until smooth and heated through. Top with vegan whipped cream and marshmallows for extra fun!" },
+        { day: 23, type: "video", source: "videos/video_1.mp4" },
+        { day: 24, type: "video", source: "videos/video_1.mp4" },
+    ];
+
+    // Function to get today's date and restrict access to future doors
+    document.addEventListener("DOMContentLoaded", () => {
+        const today = new Date().getDate();
+        const doors = document.querySelectorAll(".door");
+
+        doors.forEach(door => {
+            const day = parseInt(door.getAttribute("data-day"));
+            //if (day > today) {
+                //door.setAttribute("data-locked", "true");
+                //door.onclick = null;
+            //}
+        });
+    });
+
+    function openContent(day) {
+        const content = calendarContent.find(item => item.day === day);
+        const contentDisplay = document.getElementById("contentDisplay");
+        const contentModal = document.getElementById("contentModal");
+
+        contentDisplay.innerHTML = ""; // Clear previous content
+
+        if (content.type === "video") {
+            contentDisplay.innerHTML = `<video id="modalVideo" controls><source src="${content.source}" type="video/mp4">Your browser does not support the video tag.</video>`;
+            let vid = document.getElementById("modalVideo");
+            vid.volume = 0.2;
+        } else if (content.type === "image") {
+            contentDisplay.innerHTML = `<img src="${content.source}" alt="Day ${day} image">`;
+        } else if (content.type === "text") {
+            contentDisplay.innerHTML = `<p>${content.text}</p>`; // The <br> tags in the content will now work for line breaks
+        }
+
+        contentModal.style.display = "flex"; // Show the modal
+    }
+
+    // Function to close the modal and stop the video
+    function closeModal() {
+        const contentModal = document.getElementById("contentModal");
+        const videoElement = document.getElementById("modalVideo"); // Get the video element
+
+        contentModal.style.display = "none"; // Hide the modal
+
+        // Check if the video element exists and pause it
+        if (videoElement) {
+            videoElement.pause(); // Pause the video
+            videoElement.currentTime = 0; // Reset the video to the start
+        }
+    }
+
+    // Close modal when clicking outside the modal content
+    window.onclick = function(event) {
+        const contentModal = document.getElementById("contentModal");
+        if (event.target === contentModal) {
+            closeModal();
+        }
+    }
+</script>
+
+</body>
+</html>
